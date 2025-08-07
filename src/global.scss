@@ -1,5 +1,4 @@
 @use "./styles/variables" as *;
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap");
 
 *,
 *::before,
@@ -10,7 +9,7 @@
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Nunito", sans-serif !important;
   color: $main-black;
   background-color: $body-color;
 }
@@ -35,19 +34,4 @@ label {
   font-family: inherit;
   font-size: 16px;
   line-height: 26px !important;
-}
-
-input[type="radio"],
-label,
-button {
-  cursor: pointer;
-}
-
-button {
-  outline: none;
-  border: none;
-
-  &:disabled {
-    cursor: default;
-  }
 }

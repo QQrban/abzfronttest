@@ -2,7 +2,7 @@ import Button from "../../ui/Button/Button";
 
 import styles from "./Banner.module.scss";
 
-import banner from "../../../assets/banner.png";
+import banner from "../../../assets/banner.webp";
 
 interface BannerProps {
   onNavigate: (section: "users" | "signup") => void;
@@ -11,7 +11,12 @@ interface BannerProps {
 export default function Banner({ onNavigate }: BannerProps) {
   return (
     <div className={styles.banner}>
-      <img src={banner} alt="Banner" className={styles.bannerImg} />
+      <img
+        fetchPriority="high"
+        src={banner}
+        alt="Banner"
+        className={styles.bannerImg}
+      />
 
       <div className={styles.bannerText}>
         <h1>Test assignment for front-end developer</h1>

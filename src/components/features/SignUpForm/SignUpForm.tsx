@@ -8,7 +8,7 @@ import Button from "../../ui/Button/Button";
 import Spinner from "../../ui/Spinner/Spinner";
 
 import type { UserForm } from "../../../types/types";
-import { validateForm } from "../../../utils/validateForm";
+import { validateForm } from "./validateForm";
 import { getPositions, getToken, submitUser } from "./formApi";
 import { parseYupErrors } from "./parseYupErrors";
 

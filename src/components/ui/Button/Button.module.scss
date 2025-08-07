@@ -1,11 +1,14 @@
 @use "../../../styles/variables" as *;
 
 .button {
+  outline: none;
+  border: none;
   background-color: $primary-color;
   width: 100px;
   height: 34px;
   border-radius: 80px;
   color: $main-black;
+  cursor: pointer;
 
   &:hover {
     background-color: #ffe302;
@@ -14,5 +17,9 @@
   &:disabled {
     background-color: #b4b4b4;
     color: #ffffffde;
+  }
+
+  &:disabled {
+    cursor: default;
   }
 }
