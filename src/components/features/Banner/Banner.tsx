@@ -1,4 +1,5 @@
 import Button from "../../ui/Button/Button";
+
 import styles from "./Banner.module.scss";
 
 interface BannerProps {

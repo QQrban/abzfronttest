@@ -1,3 +1,7 @@
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// Wrapper for the entire user list section
 .userListWrapper {
   display: flex;
   flex-direction: column;
@@ -5,10 +9,26 @@
   gap: 50px;
 }
 
+// Grid layout for user cards
 .userListCardContainer {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
-  align-items: center;
-  justify-content: center;
+
+  // Two columns on medium screens
+  @include media-md {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  // Three columns on large screens
+  @include media-lg {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 29px;
+  }
+}
+
+// Modifier for wider button
+.wideButton {
+  width: 120px;
 }

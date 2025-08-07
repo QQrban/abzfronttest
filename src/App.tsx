@@ -1,11 +1,15 @@
+import { useEffect, useRef, useState } from "react";
+
 import Header from "./components/Header/Header";
 import Banner from "./components/features/Banner/Banner";
 import UserList from "./components/features/UserList/UserList";
 import SignUpForm from "./components/features/SignUpForm/SignUpForm";
+
 import type { User, UserForm } from "./types/types";
-import { useEffect, useRef, useState } from "react";
-import successImage from "./assets/success-image.svg";
+
 import styles from "./App.module.scss";
+
+import successImage from "./assets/success-image.svg";
 
 const initialForm: UserForm = {
   name: "",
@@ -22,11 +26,14 @@ function App() {
   const [nextUrl, setNextUrl] = useState<string | null>(null);
   const [userAdded, setUserAdded] = useState(false);
   const [successImg, setSuccesImg] = useState(false);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
 
   const userFormRef = useRef<HTMLDivElement | null>(null);
   const userListRef = useRef<HTMLDivElement | null>(null);
 
   const fetchUsers = async (pageToFetch: number) => {
+    setIsLoadingUsers(true);
+
     try {
       const response = await fetch(
         `https://frontend-test-assignment-api.abz.agency/api/v1/users?page=${pageToFetch}&count=6`
@@ -39,6 +46,8 @@ function App() {
       setNextUrl(data.links.next_url);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoadingUsers(false);
     }
   };
 
@@ -54,10 +63,6 @@ function App() {
     }
   }, [userAdded]);
 
-  const handleShowMore = () => {
-    setPage((prev) => prev + 1);
-  };
-
   const scrollToSection = (section: "users" | "signup") => {
     const sectionRef = section === "users" ? userListRef : userFormRef;
     sectionRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -71,9 +76,10 @@ function App() {
         <div className={styles.contentWrapper}>
           <div ref={userListRef}>
             <UserList
+              setPage={setPage}
               users={users}
               nextUrl={!!nextUrl}
-              handleShowMore={handleShowMore}
+              isLoading={isLoadingUsers}
             />
           </div>
           <div ref={userFormRef}>

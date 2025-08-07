@@ -25,10 +25,12 @@ export default function InputField({
         className={`${styles.outlinedInput} ${error ? styles.error : ""}`}
       >
         <input
+          id={name}
           type={type}
           name={name}
           value={value}
           onChange={onChange}
+          autoComplete={name}
           placeholder=" "
         />
         <label htmlFor={name}>{label}</label>

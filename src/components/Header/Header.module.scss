@@ -1,35 +1,47 @@
 @use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
 
+// Header base
 .header {
   background-color: white;
 }
 
+// Header layout container
 .headerContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
   gap: 14px;
-  max-width: 1170px;
+  max-width: $max-width;
   margin: 0 auto;
   padding: 13px 16px;
+
+  // Medium screen padding
+  @include media-md {
+    padding: 13px 32px;
+  }
+
+  // Large screen padding
+  @include media-lg {
+    padding: 13px 60px;
+  }
+
+  // Extra large screen — remove side padding
+  @include media-xl {
+    padding: 13px 0;
+  }
 }
 
+// Logo block
 .logoContainer {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
+// Group of header buttons
 .headerButtonGroup {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-// MEDIA-----------------
-@media (min-width: $breakpoint-xl) {
-  .headerContainer {
-    padding: 13px 0;
-  }
 }

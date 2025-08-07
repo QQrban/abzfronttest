@@ -1,8 +1,11 @@
 @use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
 
+// Card container styling
 .cardWrapper {
-  border-radius: 16px;
+  border-radius: 10px;
   background: white;
+  height: 254px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -10,31 +13,40 @@
   align-items: center;
   gap: 20px;
   width: 328px;
+
+  // Adjust card width on medium screens
+  @include media-md {
+    width: 344px;
+  }
+
+  // Adjust card width on large screens
+  @include media-lg {
+    width: 282px;
+  }
+
+  // Adjust card width on extra-large screens
+  @include media-xl {
+    width: 370px;
+  }
 }
 
+// Profile photo inside the card
 .profilePhoto {
   width: 70px;
   height: 70px;
   border-radius: 50%;
 }
 
+// Text block with user info
 .cardInfo {
   text-align: center;
   line-height: 26px;
 }
 
+// Utility class to truncate overflowing text
 .textEllipsis {
   width: 288px;
   text-overflow: ellipsis;
   overflow: hidden;
   text-wrap: nowrap;
-}
-
-// MEDIA------------------
-
-@media (min-width: $breakpoint-xl) {
-  .cardWrapper {
-    width: 370px;
-    gap: 29px;
-  }
 }

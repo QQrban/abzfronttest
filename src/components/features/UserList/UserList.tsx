@@ -1,22 +1,32 @@
 import Card from "../../ui/Card/Card";
-import styles from "./UserList.module.scss";
 import Button from "../../ui/Button/Button";
+import Spinner from "../../ui/Spinner/Spinner";
+
 import type { User } from "../../../types/types";
+
+import styles from "./UserList.module.scss";
 
 type UserListProps = {
   users: User[];
   nextUrl: boolean;
-  handleShowMore: () => void;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  isLoading: boolean;
 };
 
 export default function UserList({
   users,
   nextUrl,
-  handleShowMore,
+  setPage,
+  isLoading,
 }: UserListProps) {
+  const handleShowMore = () => {
+    setPage((prev) => prev + 1);
+  };
+
   return (
     <div className={styles.userListWrapper}>
       <h1>Working with GET request</h1>
+
       <div className={styles.userListCardContainer}>
         {users.map((user) => (
           <Card
@@ -29,13 +39,19 @@ export default function UserList({
           />
         ))}
       </div>
-      {nextUrl && (
-        <Button
-          disabled={false}
-          text="Show more"
-          onClick={handleShowMore}
-          type="button"
-        />
+
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        nextUrl && (
+          <Button
+            disabled={false}
+            text="Show more"
+            onClick={handleShowMore}
+            type="button"
+            className={styles.wideButton}
+          />
+        )
       )}
     </div>
   );

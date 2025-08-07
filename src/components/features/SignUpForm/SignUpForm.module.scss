@@ -1,5 +1,6 @@
 @use "../../../styles/variables" as *;
 
+// Main form wrapper
 .signUpFormWrapper {
   display: flex;
   flex-direction: column;
@@ -8,6 +9,7 @@
   padding-bottom: 140px;
 }
 
+// Inner form layout
 .signUpForm {
   display: flex;
   flex-direction: column;
@@ -15,11 +17,13 @@
   gap: 50px;
 }
 
+// "Select your position" label
 .signUpFormPosition {
   align-self: flex-start;
-  margin-top: -25px;
+  margin-top: -28px;
 }
 
+// Radio button group
 .signUpFormPositionsListContainer {
   display: flex;
   flex-direction: column;
@@ -27,12 +31,14 @@
   gap: 7px;
 }
 
+// Single radio option
 .signUpFormOptionsItem {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
+// API or validation error message
 .signUpFormError {
   color: $error-color;
 }

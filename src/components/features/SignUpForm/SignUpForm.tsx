@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
+import * as yup from "yup";
+
 import InputField from "../../ui/InputField/InputField";
 import RadioButton from "../../ui/RadioButton/RadioButton";
 import UploadField from "../../ui/UploadField/UploadField";
 import Button from "../../ui/Button/Button";
-import styles from "./SignUpForm.module.scss";
+import Spinner from "../../ui/Spinner/Spinner";
+
 import type { UserForm } from "../../../types/types";
 import { validateForm } from "../../../utils/validateForm";
-import * as yup from "yup";
+import { getPositions, getToken, submitUser } from "./formApi";
+import { parseYupErrors } from "./parseYupErrors";
+
+import styles from "./SignUpForm.module.scss";
 
 interface Position {
   id: number;
@@ -29,30 +35,18 @@ export default function SignUpForm({
   const [resetFile, setResetFile] = useState(false);
   const [apiError, setApiError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPositions = async () => {
-      const response = await fetch(
-        `https://frontend-test-assignment-api.abz.agency/api/v1/positions`
-      );
-      try {
-        const data = await response.json();
-        if (data.success) {
-          setPositions(data.positions);
-
-          if (userForm.position_id === 0 && data.positions.length > 0) {
-            setUserForm((prev) => ({
-              ...prev,
-              position_id: data.positions[0].id,
-            }));
-          }
-        }
-      } catch (error) {
-        console.log(error);
+    getPositions().then((data: Position[]) => {
+      setPositions(data);
+      if (userForm.position_id === 0 && data.length > 0) {
+        setUserForm((prev) => ({
+          ...prev,
+          position_id: data[0].id,
+        }));
       }
-    };
-
-    fetchPositions();
+    });
   }, [setUserForm, userForm.position_id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,37 +85,14 @@ export default function SignUpForm({
 
     try {
       await validateForm.validate(formToValidate, { abortEarly: false });
+      setIsLoading(true);
 
-      const tokenResponse = await fetch(
-        "https://frontend-test-assignment-api.abz.agency/api/v1/token"
-      );
-      const tokenData = await tokenResponse.json();
-      const token = tokenData.token;
-
-      const formData = new FormData();
-      formData.append("name", userForm.name);
-      formData.append("email", userForm.email);
-      formData.append("phone", userForm.phone);
-      formData.append("position_id", userForm.position_id.toString());
-      if (userForm.photo) {
-        formData.append("photo", userForm.photo);
-      }
-
-      const response = await fetch(
-        "https://frontend-test-assignment-api.abz.agency/api/v1/users",
-        {
-          method: "POST",
-          headers: {
-            Token: token,
-          },
-          body: formData,
-        }
-      );
-
-      const result = await response.json();
+      const token = await getToken();
+      const result = await submitUser(userForm, token);
 
       if (result.success) {
         setFormErrors({});
+
         setUserForm({
           name: "",
           email: "",
@@ -129,6 +100,7 @@ export default function SignUpForm({
           position_id: positions[0]?.id || 0,
           photo: null,
         });
+
         setResetFile(true);
         setUserAdded(true);
         setApiError("");
@@ -137,16 +109,12 @@ export default function SignUpForm({
       }
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        const errors: Record<string, string> = {};
-        err.inner.forEach((validationError) => {
-          if (validationError.path) {
-            errors[validationError.path] = validationError.message;
-          }
-        });
-        setFormErrors(errors);
+        setFormErrors(parseYupErrors(err));
       } else {
         console.error("Unexpected error:", err);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -154,56 +122,68 @@ export default function SignUpForm({
     <div className={styles.signUpFormWrapper}>
       <h1>Working with POST request</h1>
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
-        <InputField
-          label="Your name"
-          name="name"
-          value={userForm.name}
-          onChange={handleChange}
-          error={!!formErrors.name}
-          helperText={formErrors.name}
-        />
-        <InputField
-          label="Email"
-          name="email"
-          type="text"
-          value={userForm.email}
-          onChange={handleChange}
-          error={!!formErrors.email}
-          helperText={formErrors.email}
-        />
-        <InputField
-          helperText={
-            formErrors.phone ? formErrors.phone : "+38 (XXX) XXX - XX - XX"
-          }
-          label="Phone"
-          name="phone"
-          value={userForm.phone}
-          onChange={handleChange}
-          error={!!formErrors.phone}
-        />
-        <div className={styles.signUpFormPosition}>
-          <div>Select your position</div>
-          <div className={styles.signUpFormPositionsListContainer}>
-            {positions.map((position) => (
-              <RadioButton
-                key={position.id}
-                id={position.id}
-                name="position"
-                value={String(position.id)}
-                checked={userForm.position_id === position.id}
-                label={position.name}
-                onChange={handlePositionChange}
-              />
-            ))}
-          </div>
-        </div>
-        <UploadField
-          reset={resetFile}
-          error={!!formErrors.image}
-          helperText={formErrors.image}
-          onFileChange={handleFileChange}
-        />
-        <div className={styles.signUpFormError}>{apiError}</div>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            <InputField
+              label="Your name"
+              name="name"
+              value={userForm.name}
+              onChange={handleChange}
+              error={!!formErrors.name}
+              helperText={formErrors.name}
+            />
+            <InputField
+              label="Email"
+              name="email"
+              type="text"
+              value={userForm.email}
+              onChange={handleChange}
+              error={!!formErrors.email}
+              helperText={formErrors.email}
+            />
+            <InputField
+              helperText={
+                formErrors.phone
+                  ? formErrors.phone
+                  : "+38 (XXX) XXX - XX - XX"
+              }
+              label="Phone"
+              name="phone"
+              value={userForm.phone}
+              onChange={handleChange}
+              error={!!formErrors.phone}
+            />
+            <div className={styles.signUpFormPosition}>
+              <div>Select your position</div>
+              <div className={styles.signUpFormPositionsListContainer}>
+                {positions.map((position) => (
+                  <RadioButton
+                    key={position.id}
+                    id={position.id}
+                    name="position"
+                    value={String(position.id)}
+                    checked={userForm.position_id === position.id}
+                    label={position.name}
+                    onChange={handlePositionChange}
+                  />
+                ))}
+              </div>
+            </div>
+            <UploadField
+              reset={resetFile}
+              error={!!formErrors.image}
+              helperText={formErrors.image}
+              onFileChange={handleFileChange}
+            />
+          </>
+        )}
+        {apiError ? (
+          <div className={styles.signUpFormError}>{apiError}</div>
+        ) : (
+          ""
+        )}
         <Button type="submit" text="Sign up" disabled={!isFormValid} />
       </form>
     </div>

@@ -1,6 +1,8 @@
-import styles from "./Card.module.scss";
-import photoCover from "../../../assets/photo-cover.svg";
 import Tooltip from "../Tooltip/Toopltip";
+
+import photoCover from "../../../assets/photo-cover.svg";
+
+import styles from "./Card.module.scss";
 
 type CardProps = {
   photo: string;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+
 import styles from "./Tooltip.module.scss";
 
 interface Props {

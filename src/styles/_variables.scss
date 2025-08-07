@@ -8,8 +8,6 @@ $main-white: #fff;
 
 $placeholder-color: #7e7e7e;
 
-$background-color: #f8f8f8;
-
 $error-color: #cb3d40;
 
 $input-border: #d0cfcf;
@@ -18,13 +16,8 @@ $body-color: #f8f8f8;
 
 $max-width: 1170px;
 
-$mobile-banner-height: 500px;
-
-$tablet-banner-height: 650px;
-
-$mobile-banner-text-width: 328px;
-
-$tablet-banner-text-width: 380px;
+$width-sm: 328px; // inputs, cards etc.
+$width-md: 380px; // --||--
 
 $breakpoint-sm: 480px; // mobiles
 $breakpoint-md: 768px; // tablets

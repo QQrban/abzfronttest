@@ -1,41 +1,52 @@
 @use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
 
+// Upload Field Container
 .uploadField {
-  width: 328px;
+  width: $width-sm;
   display: flex;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
   height: 54px;
   border-radius: 4px;
   border: 1px solid $input-border;
   border-left: none;
 
+  @include media-md {
+    width: $width-md;
+  }
+
+  // Error state for the entire field
   &.error {
     border: 2px solid $error-color;
   }
 }
 
+// Upload Button
 .uploadBtn {
   background: none;
   cursor: pointer;
   width: 83px;
   height: 54px;
   padding: 0 15px;
-  border: 1px solid #000000de;
+  border: 1px solid $main-black;
   border-radius: 4px 0 0 4px;
 
+  // Error border handling for the button
   &.error {
     border: none;
     border-right: 2px solid $error-color;
   }
 }
 
+// Filename Placeholder
 .placeholder {
   color: $placeholder-color;
-  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 
+  // Change text color when file is selected
   &.filled {
     color: $main-black;
   }
@@ -45,6 +56,7 @@
   display: none;
 }
 
+// Error Text Below Field
 .errorText {
   color: $error-color;
   font-size: 12px;
