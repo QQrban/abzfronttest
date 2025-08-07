@@ -34,7 +34,7 @@ input,
 label {
   font-family: inherit;
   font-size: 16px;
-  line-height: 26px;
+  line-height: 26px !important;
 }
 
 input[type="radio"],
