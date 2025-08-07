@@ -50,7 +50,12 @@ export default function SignUpForm({
   }, [setUserForm, userForm.position_id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserForm({ ...userForm, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setUserForm((prev) => ({
+      ...prev,
+      [name]: name === "email" ? value.toLowerCase() : value,
+    }));
   };
 
   const handlePositionChange = (value: string) => {
