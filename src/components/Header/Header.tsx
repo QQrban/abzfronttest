@@ -2,7 +2,7 @@ import Button from "../ui/Button/Button";
 
 import styles from "./Header.module.scss";
 
-import logo from "../../assets/Logo.svg";
+import logo from "../../assets/logo.svg";
 
 interface HeaderProps {
   onNavigate: (section: "users" | "signup") => void;

@@ -1,4 +1,4 @@
-import spinnerImg from "../../../assets/Preloader.svg";
+import spinnerImg from "../../../assets/preloader.svg";
 
 import styles from "./Spinner.module.scss";
 
