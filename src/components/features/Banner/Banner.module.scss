@@ -1,0 +1,41 @@
+@use "../../../styles/variables" as *;
+
+.banner {
+  width: 100%;
+  height: $mobile-banner-height;
+  background-image: url("../../../assets/banner.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bannerText {
+  color: $main-white;
+  width: $mobile-banner-text-width;
+  text-align: center;
+
+  p {
+    margin-top: 21px;
+  }
+
+  button {
+    margin-top: 32px;
+  }
+}
+
+// MEDIA---------------------------------------
+
+@media (min-width: $breakpoint-md) {
+  .bannerText {
+    width: $tablet-banner-text-width;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .banner {
+    height: $tablet-banner-height;
+  }
+}

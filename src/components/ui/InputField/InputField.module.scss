@@ -1,0 +1,66 @@
+@use "../../../styles/variables" as *;
+
+$input-bg: $body-color;
+$transition: cubic-bezier(0.65, 0.05, 0.36, 1);
+
+// I would have used an MUI component since the input is identical to the one in MUI,
+// but I didn’t want to include the entire library just for a single input,
+// so I adapted it from here: https://github.com/LeonGeldsch/css_material_input
+
+.outlinedInput {
+  position: relative;
+
+  input {
+    width: 328px;
+    height: 54px;
+    outline: 1px solid $input-border;
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    padding-left: 16px;
+    font-size: 16px;
+    transition: 0.1s $transition;
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    background-color: $input-bg;
+    transform: translateY(-50%);
+    color: $placeholder-color;
+    text-align: center;
+    transition: 0.2s $transition;
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  input:not(:placeholder-shown) ~ label,
+  input:focus ~ label {
+    top: 0px;
+    left: 12px;
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  &.error {
+    input {
+      outline: 2px solid $error-color;
+    }
+
+    label {
+      color: $error-color;
+    }
+  }
+}
+
+.helperText {
+  font-size: 12px;
+  line-height: 14px;
+  margin-left: 16px;
+  color: gray;
+
+  &--error {
+    color: $error-color;
+  }
+}

@@ -1,0 +1,35 @@
+@use "../../styles/variables" as *;
+
+.header {
+  background-color: white;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  gap: 14px;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 13px 16px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.headerButtonGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+// MEDIA-----------------
+@media (min-width: $breakpoint-xl) {
+  .headerContainer {
+    padding: 13px 0;
+  }
+}

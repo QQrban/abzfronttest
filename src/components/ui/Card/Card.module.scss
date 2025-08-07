@@ -1,0 +1,40 @@
+@use "../../../styles/variables" as *;
+
+.cardWrapper {
+  border-radius: 16px;
+  background: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 328px;
+}
+
+.profilePhoto {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.cardInfo {
+  text-align: center;
+  line-height: 26px;
+}
+
+.textEllipsis {
+  width: 288px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
+}
+
+// MEDIA------------------
+
+@media (min-width: $breakpoint-xl) {
+  .cardWrapper {
+    width: 370px;
+    gap: 29px;
+  }
+}

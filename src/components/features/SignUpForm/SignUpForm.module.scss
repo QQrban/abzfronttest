@@ -1,0 +1,38 @@
+@use "../../../styles/variables" as *;
+
+.signUpFormWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding-bottom: 140px;
+}
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+.signUpFormPosition {
+  align-self: flex-start;
+  margin-top: -25px;
+}
+
+.signUpFormPositionsListContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 11px;
+  gap: 7px;
+}
+
+.signUpFormOptionsItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.signUpFormError {
+  color: $error-color;
+}

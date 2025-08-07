@@ -1,0 +1,28 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.ellipsisText {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -45px;
+  left: 0;
+  background-color: #000;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 26px;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}

@@ -1,0 +1,49 @@
+@use "./styles/variables" as *;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital@0;1&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  color: $main-black;
+  background-color: $body-color;
+}
+
+main {
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+button {
+  outline: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+input[type="radio"],
+label {
+  cursor: pointer;
+}
