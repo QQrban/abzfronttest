@@ -8,6 +8,7 @@ interface InputFieldProps {
   error?: boolean;
   helperText?: string;
   type?: string;
+  max?: number;
 }
 
 export default function InputField({
@@ -16,6 +17,7 @@ export default function InputField({
   value,
   onChange,
   error = false,
+  max,
   helperText = "",
   type = "text",
 }: InputFieldProps) {
@@ -31,6 +33,7 @@ export default function InputField({
           value={value}
           onChange={onChange}
           autoComplete={name}
+          maxLength={max}
           placeholder=" "
         />
         <label htmlFor={name}>{label}</label>

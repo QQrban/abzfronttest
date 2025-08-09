@@ -58,6 +58,17 @@ export default function SignUpForm({
     }));
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    if (/^\+?\d*$/.test(value)) {
+      setUserForm((prev) => ({
+        ...prev,
+        phone: value,
+      }));
+    }
+  };
+
   const handlePositionChange = (value: string) => {
     setUserForm({ ...userForm, position_id: Number(value) });
   };
@@ -156,8 +167,10 @@ export default function SignUpForm({
               }
               label="Phone"
               name="phone"
+              type="text"
+              max={13}
               value={userForm.phone}
-              onChange={handleChange}
+              onChange={handlePhoneChange}
               error={!!formErrors.phone}
             />
             <div className={styles.signUpFormPosition}>
