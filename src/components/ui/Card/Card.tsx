@@ -29,7 +29,11 @@ export default function Card({
     <div className={styles.cardWrapper}>
       <img
         className={styles.profilePhoto}
-        src={photo ? photo : photoCover}
+        src={photo}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.src = photoCover;
+        }}
         alt={name}
       />
       <Tooltip text={name} />

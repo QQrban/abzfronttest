@@ -145,6 +145,7 @@ export default function SignUpForm({
             <InputField
               label="Your name"
               name="name"
+              max={60}
               value={userForm.name}
               onChange={handleChange}
               error={!!formErrors.name}

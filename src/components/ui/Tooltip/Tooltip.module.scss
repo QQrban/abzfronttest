@@ -1,12 +1,10 @@
 @use "../../../styles/variables" as *;
 @use "../../../styles/mixins" as *;
 
-// Wrapper for positioning the tooltip relative to ellipsis text
 .wrapper {
   position: relative;
 }
 
-// Text with ellipsis when it overflows its container
 .ellipsisText {
   max-width: 200px;
   white-space: nowrap;
@@ -15,25 +13,33 @@
   cursor: pointer;
 }
 
-// Tooltip shown on hover or interaction
 .tooltip {
+  max-width: calc(100vw - 20px);
   position: absolute;
-  bottom: -45px;
-  left: -75px;
-  font-size: 11px;
-  background-color: #000;
-  color: $main-white;
-  padding: 3px 16px;
-  border-radius: 4px;
-  text-align: center;
-  line-height: 26px;
+  top: calc(100% + 5px);
+  left: 0;
+  font-size: 12px;
+  background-color: #333;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
   white-space: nowrap;
   z-index: 100;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
-  // Adjust position and font size on medium screens and above
+  &.veryLongText {
+    white-space: normal;
+    max-width: 280px;
+    overflow-wrap: break-word;
+    left: -55px;
+
+    @include media-md {
+      max-width: 350px;
+    }
+  }
+
   @include media-md {
-    left: 0;
-    font-size: 16px;
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }
