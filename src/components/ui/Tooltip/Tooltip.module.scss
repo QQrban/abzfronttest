@@ -1,24 +1,26 @@
 @use "../../../styles/variables" as *;
 @use "../../../styles/mixins" as *;
 
+// Container for text and tooltip
 .wrapper {
   position: relative;
 }
 
+// Ellipsis for overflowing single-line text
 .ellipsisText {
   max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  cursor: pointer;
 }
 
+// Tooltip with responsive width adjustments
 .tooltip {
   max-width: calc(100vw - 20px);
   position: absolute;
   top: calc(100% + 5px);
   left: 0;
-  font-size: 12px;
+  font-size: 14px;
   background-color: #333;
   color: white;
   padding: 6px 12px;
@@ -27,6 +29,7 @@
   z-index: 100;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
+  // Styles for tooltips containing very long text
   &.veryLongText {
     white-space: normal;
     max-width: 280px;
@@ -34,12 +37,24 @@
     left: -55px;
 
     @include media-md {
-      max-width: 350px;
+      max-width: 345px;
+    }
+
+    @include media-xl {
+      max-width: 450px;
+    }
+
+    // On xxl screens — remove width limit and reset white-space
+    @include media-xxl {
+      left: 0;
+      max-width: none;
+      white-space: unset;
     }
   }
 
+  // Increase font size and padding on medium screens
   @include media-md {
-    font-size: 14px;
+    font-size: 16px;
     padding: 8px 16px;
   }
 }
